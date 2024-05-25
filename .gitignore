@@ -1,0 +1,21 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.vcxproj.user
+*.filters
+
+# Build results
+[Bb]in/
+[Oo]bj/
+
+# Rider
+.idea/
+
+# OS files
+*.DS_Store
+Thumbs.db
+
+# Other
+*.log
+*.lock
