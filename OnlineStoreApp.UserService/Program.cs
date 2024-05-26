@@ -1,26 +1,23 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using OnlineStoreApp.WebAPI.Clients;
+using OnlineStoreApp.Domain.Interfaces;
+using OnlineStoreApp.Infrastructure.Data;
+using OnlineStoreApp.Infrastructure.Repositories;
+using OnlineStoreApp.UserService.Services;
 using System.Text;
-using System.IO;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddDbContext<UserDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+    b => b.MigrationsAssembly("OnlineStoreApp.UserService")));
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<UserServices>();
+
 builder.Services.AddControllers();
-
-// Register HttpClient for UserServiceClient
-builder.Services.AddHttpClient<UserServiceClient>(client =>
-{
-    client.BaseAddress = new Uri("http://localhost:5091"); // Base address of UserService
-});
-
-// Register HttpClient for ProductServiceClient
-builder.Services.AddHttpClient<ProductServiceClient>(client =>
-{
-    client.BaseAddress = new Uri("http://localhost:5166"); // Base address of ProductService
-});
 
 var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);
 
@@ -39,16 +36,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "OnlineStoreApp.WebAPI", Version = "v1" });
-    var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
-    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-    if (File.Exists(xmlPath))
-    {
-        c.IncludeXmlComments(xmlPath);
-    }
-});
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -57,11 +45,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
     app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "OnlineStoreApp.WebAPI v1");
-      //  c.RoutePrefix = string.Empty; // Optional, sets Swagger UI at the app's root
-    });
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "UserService v1"));
 }
 
 app.UseRouting();
