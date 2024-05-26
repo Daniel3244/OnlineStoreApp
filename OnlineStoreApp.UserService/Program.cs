@@ -5,6 +5,7 @@ using OnlineStoreApp.Domain.Interfaces;
 using OnlineStoreApp.Infrastructure.Data;
 using OnlineStoreApp.Infrastructure.Repositories;
 using OnlineStoreApp.UserService.Services;
+using OnlineStoreApp.UserService.Controllers;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);

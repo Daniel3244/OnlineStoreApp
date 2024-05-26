@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using OnlineStoreApp.Application.DTOs;
 using OnlineStoreApp.ProductService.Services;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ namespace OnlineStoreApp.ProductService.Controllers
 {
     [ApiController]
     [Route("api/productservice/[controller]")]
+    [Authorize]
     public class ProductController : ControllerBase
     {
         private readonly ProductServices _productService;

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using OnlineStoreApp.Application.DTOs;
 using OnlineStoreApp.WebAPI.Clients;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ namespace OnlineStoreApp.WebAPI.Controllers
 {
     [ApiController]
     [Route("api/webapi/[controller]")]
+    [Authorize]  // Ensure the whole controller requires authorization
     public class ProductController : ControllerBase
     {
         private readonly ProductServiceClient _productServiceClient;

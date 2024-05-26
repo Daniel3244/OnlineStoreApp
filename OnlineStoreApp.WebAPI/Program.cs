@@ -1,9 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using OnlineStoreApp.WebAPI.Clients;
 using System.Text;
-using System.IO;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -60,7 +58,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "OnlineStoreApp.WebAPI v1");
-      //  c.RoutePrefix = string.Empty; // Optional, sets Swagger UI at the app's root
     });
 }
 
