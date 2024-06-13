@@ -3,17 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34916.146
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineStoreApp.Domain", "OnlineStoreApp.Domain\OnlineStoreApp.Domain.csproj", "{9B72CB70-A477-4745-8E01-1048C95C1802}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineStoreApp.Domain", "OnlineStoreApp.Domain\OnlineStoreApp.Domain.csproj", "{9B72CB70-A477-4745-8E01-1048C95C1802}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineStoreApp.Application", "OnlineStoreApp.Application\OnlineStoreApp.Application.csproj", "{9FF54B04-8368-43E2-B06C-0EBC35329645}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineStoreApp.Application", "OnlineStoreApp.Application\OnlineStoreApp.Application.csproj", "{9FF54B04-8368-43E2-B06C-0EBC35329645}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineStoreApp.Infrastructure", "OnlineStoreApp.Infrastructure\OnlineStoreApp.Infrastructure.csproj", "{D6976C28-6462-4AF9-B9ED-FE28F0F1C947}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineStoreApp.Infrastructure", "OnlineStoreApp.Infrastructure\OnlineStoreApp.Infrastructure.csproj", "{D6976C28-6462-4AF9-B9ED-FE28F0F1C947}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineStoreApp.WebAPI", "OnlineStoreApp.WebAPI\OnlineStoreApp.WebAPI.csproj", "{6B2C66EC-1CA4-4CCA-B4BB-C71D0341E8FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineStoreApp.WebAPI", "OnlineStoreApp.WebAPI\OnlineStoreApp.WebAPI.csproj", "{6B2C66EC-1CA4-4CCA-B4BB-C71D0341E8FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineStoreApp.UserService", "OnlineStoreApp.UserService\OnlineStoreApp.UserService.csproj", "{D8F3E1E8-41E4-4596-9AA6-7BF8825095EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineStoreApp.UserService", "OnlineStoreApp.UserService\OnlineStoreApp.UserService.csproj", "{D8F3E1E8-41E4-4596-9AA6-7BF8825095EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineStoreApp.ProductService", "OnlineStoreApp.ProductService\OnlineStoreApp.ProductService.csproj", "{3A01ABAF-63C4-43CE-B131-364FD5487D5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineStoreApp.ProductService", "OnlineStoreApp.ProductService\OnlineStoreApp.ProductService.csproj", "{3A01ABAF-63C4-43CE-B131-364FD5487D5D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineStoreApp.Tests", "OnlineStoreApp.Tests\OnlineStoreApp.Tests.csproj", "{894B8A7A-53BD-461B-91C7-DC378B98DC15}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{3A01ABAF-63C4-43CE-B131-364FD5487D5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A01ABAF-63C4-43CE-B131-364FD5487D5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A01ABAF-63C4-43CE-B131-364FD5487D5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{894B8A7A-53BD-461B-91C7-DC378B98DC15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{894B8A7A-53BD-461B-91C7-DC378B98DC15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{894B8A7A-53BD-461B-91C7-DC378B98DC15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{894B8A7A-53BD-461B-91C7-DC378B98DC15}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
