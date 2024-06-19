@@ -22,6 +22,7 @@
     <ProjectReference Include="..\OnlineStoreApp.Application\OnlineStoreApp.Application.csproj" />
     <ProjectReference Include="..\OnlineStoreApp.Domain\OnlineStoreApp.Domain.csproj" />
     <ProjectReference Include="..\OnlineStoreApp.Infrastructure\OnlineStoreApp.Infrastructure.csproj" />
+    <ProjectReference Include="..\OnlineStoreApp.ProductService\OnlineStoreApp.ProductService.csproj" />
   </ItemGroup>
 
 </Project>
