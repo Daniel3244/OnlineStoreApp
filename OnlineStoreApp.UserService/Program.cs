@@ -37,6 +37,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
