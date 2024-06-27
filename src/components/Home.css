@@ -1,0 +1,12 @@
+.home-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh; /* Adjust this value to center the text vertically as needed */
+    text-align: center;
+}
+
+.welcome-text {
+    font-size: 2.5rem; /* Adjust the font size as needed */
+    color: #333; /* Adjust the text color as needed */
+}
