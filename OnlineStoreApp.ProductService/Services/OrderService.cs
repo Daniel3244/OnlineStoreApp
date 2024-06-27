@@ -1,22 +1,22 @@
 ﻿using OnlineStoreApp.Application.DTOs;
+using OnlineStoreApp.Domain.Entities;
+using OnlineStoreApp.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using OnlineStoreApp.Domain.Interfaces;
-using OnlineStoreApp.Domain.Entities;
 
-
-namespace OnlineStoreApp.Application.Services
+namespace OnlineStoreApp.ProductService.Services
 {
     public class OrderService
     {
         private readonly IOrderRepository _orderRepository;
+        private readonly ProductServices _productServices;
 
-        public OrderService(IOrderRepository orderRepository)
+        public OrderService(IOrderRepository orderRepository, ProductServices productServices)
         {
             _orderRepository = orderRepository;
+            _productServices = productServices;
         }
 
         public async Task<IEnumerable<OrderDto>> GetOrdersByUserIdAsync(Guid userId)
@@ -27,6 +27,7 @@ namespace OnlineStoreApp.Application.Services
                 Id = o.Id,
                 UserId = o.UserId,
                 OrderDate = o.OrderDate,
+                TotalPrice = o.TotalPrice,
                 OrderItems = o.OrderItems.Select(oi => new OrderItemDto
                 {
                     Id = oi.Id,
@@ -39,11 +40,21 @@ namespace OnlineStoreApp.Application.Services
 
         public async Task AddOrderAsync(OrderDto dto)
         {
+            foreach (var item in dto.OrderItems)
+            {
+                var success = await _productServices.UpdateProductStockAsync(item.ProductId, -item.Quantity);
+                if (!success)
+                {
+                    throw new InvalidOperationException("Insufficient stock for product " + item.ProductId);
+                }
+            }
+
             var order = new Order
             {
                 Id = Guid.NewGuid(),
                 UserId = dto.UserId,
-                OrderDate = dto.OrderDate,
+                OrderDate = DateTime.UtcNow,
+                TotalPrice = dto.TotalPrice,
                 OrderItems = dto.OrderItems.Select(oi => new OrderItem
                 {
                     Id = Guid.NewGuid(),
@@ -57,4 +68,3 @@ namespace OnlineStoreApp.Application.Services
         }
     }
 }
-

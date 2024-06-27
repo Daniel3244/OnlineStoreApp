@@ -30,10 +30,10 @@ namespace OnlineStoreApp.WebAPI.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserLoginDto dto)
         {
-            var token = await _userServiceClient.LoginUser(dto);
-            if (!string.IsNullOrEmpty(token))
+            var loginResponse = await _userServiceClient.LoginUser(dto);
+            if (loginResponse != null)
             {
-                return Ok(new { Token = token });
+                return Ok(new { Token = loginResponse.Token, Role = loginResponse.Role });
             }
             return Unauthorized();
         }

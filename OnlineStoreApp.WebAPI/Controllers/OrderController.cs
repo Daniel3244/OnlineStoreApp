@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineStoreApp.Application.DTOs;
-using OnlineStoreApp.Application.Services;
+using OnlineStoreApp.ProductService.Services;
 using System.Threading.Tasks;
 
 namespace OnlineStoreApp.WebAPI.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/webapi/[controller]")]
     public class OrderController : ControllerBase
     {
         private readonly OrderService _orderService;

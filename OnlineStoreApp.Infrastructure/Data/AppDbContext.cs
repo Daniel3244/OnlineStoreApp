@@ -24,6 +24,10 @@ namespace OnlineStoreApp.Infrastructure.Data
                 .Property(oi => oi.Price)
                 .HasColumnType("decimal(18,2)");
 
+            modelBuilder.Entity<Order>()
+                .Property(o => o.TotalPrice)
+                .HasColumnType("decimal(18,2)");
+
             base.OnModelCreating(modelBuilder);
         }
     }

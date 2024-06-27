@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using OnlineStoreApp.Application.DTOs;
 using OnlineStoreApp.UserService.Services;
 using System.Threading.Tasks;
 using OnlineStoreApp.Domain.Entities;
-using System.IdentityModel.Tokens.Jwt;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using System.Security.Claims;
 
 namespace OnlineStoreApp.UserService.Controllers
 {
@@ -37,7 +37,7 @@ namespace OnlineStoreApp.UserService.Controllers
                 return Unauthorized();
             }
             var token = GenerateJwtToken(user);
-            return Ok(new { Token = token });
+            return Ok(new { Token = token, Role = user.Role }); // Include the role in the response
         }
 
         private string GenerateJwtToken(User user)
@@ -48,9 +48,9 @@ namespace OnlineStoreApp.UserService.Controllers
             {
                 Subject = new ClaimsIdentity(new[]
                 {
-                    new Claim("id", user.Id.ToString()),
-                    new Claim(ClaimTypes.Role, user.Role)
-                }),
+            new Claim("id", user.Id.ToString()),
+            new Claim(ClaimTypes.Role, user.Role)
+        }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
                 Issuer = "OnlineStoreApp",

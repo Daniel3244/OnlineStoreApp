@@ -1,12 +1,9 @@
-﻿using OnlineStoreApp.Infrastructure.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OnlineStoreApp.Domain.Entities;
+﻿using OnlineStoreApp.Domain.Entities;
 using OnlineStoreApp.Domain.Interfaces;
+using OnlineStoreApp.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Threading.Tasks;
 
 namespace OnlineStoreApp.Infrastructure.Repositories
 {
@@ -36,4 +33,3 @@ namespace OnlineStoreApp.Infrastructure.Repositories
         }
     }
 }
-

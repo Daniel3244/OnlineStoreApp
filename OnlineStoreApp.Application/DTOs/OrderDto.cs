@@ -12,6 +12,6 @@ namespace OnlineStoreApp.Application.DTOs
         public Guid UserId { get; set; }
         public DateTime OrderDate { get; set; }
         public List<OrderItemDto> OrderItems { get; set; }
+        public decimal TotalPrice { get; set; }
     }
 }
-

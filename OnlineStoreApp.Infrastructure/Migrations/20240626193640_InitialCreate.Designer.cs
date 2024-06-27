@@ -9,10 +9,10 @@ using OnlineStoreApp.Infrastructure.Data;
 
 #nullable disable
 
-namespace OnlineStoreApp.ProductService.Migrations.ProductServiceMigrations
+namespace OnlineStoreApp.Infrastructure.Migrations
 {
-    [DbContext(typeof(ProductDbContext))]
-    [Migration("20240525213336_InitialCreate")]
+    [DbContext(typeof(AppDbContext))]
+    [Migration("20240626193640_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -34,6 +34,9 @@ namespace OnlineStoreApp.ProductService.Migrations.ProductServiceMigrations
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
@@ -48,7 +51,7 @@ namespace OnlineStoreApp.ProductService.Migrations.ProductServiceMigrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("OrderId")
+                    b.Property<Guid?>("OrderId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Price")
@@ -92,13 +95,34 @@ namespace OnlineStoreApp.ProductService.Migrations.ProductServiceMigrations
                     b.ToTable("Products");
                 });
 
+            modelBuilder.Entity("OnlineStoreApp.Domain.Entities.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("OnlineStoreApp.Domain.Entities.OrderItem", b =>
                 {
                     b.HasOne("OnlineStoreApp.Domain.Entities.Order", null)
                         .WithMany("OrderItems")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OrderId");
                 });
 
             modelBuilder.Entity("OnlineStoreApp.Domain.Entities.Order", b =>

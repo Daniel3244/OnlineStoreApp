@@ -18,7 +18,8 @@ namespace OnlineStoreApp.WebAPI.Controllers
         [HttpGet("protecteddata")]
         public async Task<IActionResult> GetProtectedData()
         {
-            var data = await _httpClientService.GetProtectedDataAsync();
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            var data = await _httpClientService.GetProtectedDataAsync(token);
             if (data != null)
             {
                 return Ok(data);
