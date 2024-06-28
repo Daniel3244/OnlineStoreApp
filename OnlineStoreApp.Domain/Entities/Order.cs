@@ -12,5 +12,6 @@ namespace OnlineStoreApp.Domain.Entities
         public Guid UserId { get; set; }
         public DateTime OrderDate { get; set; }
         public List<OrderItem> OrderItems { get; set; }
+        public decimal TotalPrice { get; set; }
     }
 }

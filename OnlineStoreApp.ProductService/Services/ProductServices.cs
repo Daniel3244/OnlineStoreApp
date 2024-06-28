@@ -60,5 +60,51 @@ namespace OnlineStoreApp.ProductService.Services
                 Stock = product.Stock
             };
         }
+
+        public async Task<bool> DeleteProductAsync(Guid id)
+        {
+            var product = await _productRepository.GetByIdAsync(id);
+            if (product == null)
+            {
+                return false;
+            }
+            await _productRepository.DeleteAsync(product);
+            return true;
+        }
+
+        public async Task<bool> UpdateProductAsync(ProductDto dto)
+        {
+            var product = await _productRepository.GetByIdAsync(dto.Id);
+            if (product == null)
+            {
+                return false;
+            }
+
+            product.Name = dto.Name;
+            product.Description = dto.Description;
+            product.Price = dto.Price;
+            product.Stock = dto.Stock;
+
+            await _productRepository.UpdateAsync(product);
+            return true;
+        }
+
+        public async Task<bool> UpdateProductStockAsync(Guid productId, int quantityChange)
+        {
+            var product = await _productRepository.GetByIdAsync(productId);
+            if (product == null)
+            {
+                return false;
+            }
+
+            if (product.Stock + quantityChange < 0)
+            {
+                return false;
+            }
+
+            product.Stock += quantityChange;
+            await _productRepository.UpdateAsync(product);
+            return true;
+        }
     }
 }

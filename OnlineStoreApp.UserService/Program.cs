@@ -5,8 +5,9 @@ using OnlineStoreApp.Domain.Interfaces;
 using OnlineStoreApp.Infrastructure.Data;
 using OnlineStoreApp.Infrastructure.Repositories;
 using OnlineStoreApp.UserService.Services;
-using OnlineStoreApp.UserService.Controllers;
 using System.Text;
+using OnlineStoreApp.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,9 @@ builder.Services.AddDbContext<UserDbContext>(options =>
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<UserServices>();
+
+// Register PasswordHasher
+builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
 builder.Services.AddControllers();
 
@@ -37,7 +41,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();

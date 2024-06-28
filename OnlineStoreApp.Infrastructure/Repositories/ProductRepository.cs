@@ -1,12 +1,10 @@
 ﻿using OnlineStoreApp.Infrastructure.Data;
+using OnlineStoreApp.Domain.Entities;
+using OnlineStoreApp.Domain.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using OnlineStoreApp.Domain.Interfaces;
-using OnlineStoreApp.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
 
 namespace OnlineStoreApp.Infrastructure.Repositories
 {
@@ -19,14 +17,14 @@ namespace OnlineStoreApp.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<Product> GetByIdAsync(Guid id)
-        {
-            return await _context.Products.FindAsync(id);
-        }
-
         public async Task<IEnumerable<Product>> GetAllAsync()
         {
             return await _context.Products.ToListAsync();
+        }
+
+        public async Task<Product> GetByIdAsync(Guid id)
+        {
+            return await _context.Products.FindAsync(id);
         }
 
         public async Task AddAsync(Product product)
@@ -34,6 +32,17 @@ namespace OnlineStoreApp.Infrastructure.Repositories
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
         }
+
+        public async Task DeleteAsync(Product product)
+        {
+            _context.Products.Remove(product);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateAsync(Product product)
+        {
+            _context.Products.Update(product);
+            await _context.SaveChangesAsync();
+        }
     }
 }
-

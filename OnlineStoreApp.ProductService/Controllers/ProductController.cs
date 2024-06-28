@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using OnlineStoreApp.Application.DTOs;
 using OnlineStoreApp.ProductService.Services;
 using System.Threading.Tasks;
+using System;
 
 namespace OnlineStoreApp.ProductService.Controllers
 {
     [ApiController]
     [Route("api/productservice/[controller]")]
-    [Authorize]
     public class ProductController : ControllerBase
     {
         private readonly ProductServices _productService;
@@ -19,6 +19,7 @@ namespace OnlineStoreApp.ProductService.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> AddProduct(ProductDto dto)
         {
             await _productService.AddProductAsync(dto);
@@ -41,6 +42,35 @@ namespace OnlineStoreApp.ProductService.Controllers
                 return NotFound();
             }
             return Ok(product);
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize]
+        public async Task<IActionResult> DeleteProduct(Guid id)
+        {
+            var result = await _productService.DeleteProductAsync(id);
+            if (result)
+            {
+                return Ok();
+            }
+            return NotFound();
+        }
+
+        [HttpPut("{id}")]
+        [Authorize]
+        public async Task<IActionResult> UpdateProduct(Guid id, ProductDto dto)
+        {
+            if (id != dto.Id)
+            {
+                return BadRequest("Product ID mismatch");
+            }
+
+            var result = await _productService.UpdateProductAsync(dto);
+            if (result)
+            {
+                return Ok();
+            }
+            return NotFound($"Product with ID: {dto.Id} not found.");
         }
     }
 }

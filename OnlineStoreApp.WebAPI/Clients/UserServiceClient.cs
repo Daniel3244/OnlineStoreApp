@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 public class LoginResponse
 {
     public string Token { get; set; }
+    public string Role { get; set; } 
 }
 
 public class UserServiceClient
@@ -23,13 +24,13 @@ public class UserServiceClient
         return response.IsSuccessStatusCode;
     }
 
-    public async Task<string> LoginUser(UserLoginDto dto)
+    public async Task<LoginResponse> LoginUser(UserLoginDto dto)
     {
         var response = await _httpClient.PostAsJsonAsync("/api/userservice/User/login", dto);
         if (response.IsSuccessStatusCode)
         {
             var result = await response.Content.ReadFromJsonAsync<LoginResponse>();
-            return result?.Token;
+            return result; 
         }
         return null;
     }

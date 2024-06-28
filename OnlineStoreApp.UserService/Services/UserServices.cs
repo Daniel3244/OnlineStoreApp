@@ -3,15 +3,16 @@ using System.Threading.Tasks;
 using OnlineStoreApp.Application.DTOs;
 using OnlineStoreApp.Domain.Entities;
 using OnlineStoreApp.Domain.Interfaces;
+using Microsoft.AspNetCore.Identity;
 
 namespace OnlineStoreApp.UserService.Services
 {
     public class UserServices
     {
         private readonly IUserRepository _userRepository;
-        private readonly IPasswordHasher _passwordHasher;
+        private readonly IPasswordHasher<User> _passwordHasher;
 
-        public UserServices(IUserRepository userRepository, IPasswordHasher passwordHasher)
+        public UserServices(IUserRepository userRepository, IPasswordHasher<User> passwordHasher)
         {
             _userRepository = userRepository;
             _passwordHasher = passwordHasher;
@@ -23,9 +24,10 @@ namespace OnlineStoreApp.UserService.Services
             {
                 Id = Guid.NewGuid(),
                 Username = dto.Username,
-                PasswordHash = _passwordHasher.HashPassword(dto.Password),
                 Role = "User"
             };
+
+            user.PasswordHash = _passwordHasher.HashPassword(user, dto.Password);
 
             await _userRepository.AddAsync(user);
         }
@@ -33,7 +35,7 @@ namespace OnlineStoreApp.UserService.Services
         public async Task<User> LoginAsync(UserLoginDto dto)
         {
             var user = await _userRepository.GetByUsernameAsync(dto.Username);
-            if (user == null || !_passwordHasher.HashPassword(dto.Password).Equals(user.PasswordHash))
+            if (user == null || _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, dto.Password) != PasswordVerificationResult.Success)
             {
                 throw new UnauthorizedAccessException("Invalid credentials");
             }

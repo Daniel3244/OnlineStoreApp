@@ -14,4 +14,3 @@ namespace OnlineStoreApp.Domain.Entities
         public string Role { get; set; }
     }
 }
-

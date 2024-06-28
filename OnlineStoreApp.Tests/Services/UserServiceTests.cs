@@ -6,19 +6,20 @@ using OnlineStoreApp.Domain.Entities;
 using OnlineStoreApp.Domain.Interfaces;
 using OnlineStoreApp.UserService.Services;
 using Xunit;
+using Microsoft.AspNetCore.Identity;
 
 namespace OnlineStoreApp.Tests.Services
 {
     public class UserServicesTests
     {
         private readonly Mock<IUserRepository> _mockRepo;
-        private readonly Mock<IPasswordHasher> _mockHasher;
+        private readonly Mock<IPasswordHasher<User>> _mockHasher;
         private readonly UserServices _userServices;
 
         public UserServicesTests()
         {
             _mockRepo = new Mock<IUserRepository>();
-            _mockHasher = new Mock<IPasswordHasher>();
+            _mockHasher = new Mock<IPasswordHasher<User>>();
             _userServices = new UserServices(_mockRepo.Object, _mockHasher.Object);
         }
 
@@ -31,7 +32,7 @@ namespace OnlineStoreApp.Tests.Services
                 Username = "testuser",
                 Password = "password123"
             };
-            _mockHasher.Setup(h => h.HashPassword(userDto.Password)).Returns("hashedPassword");
+            _mockHasher.Setup(h => h.HashPassword(It.IsAny<User>(), userDto.Password)).Returns("hashedPassword");
 
             // Act
             await _userServices.RegisterUserAsync(userDto);
@@ -59,7 +60,7 @@ namespace OnlineStoreApp.Tests.Services
             };
 
             _mockRepo.Setup(repo => repo.GetByUsernameAsync(userDto.Username)).ReturnsAsync(user);
-            _mockHasher.Setup(h => h.HashPassword(userDto.Password)).Returns(hashedPassword);
+            _mockHasher.Setup(h => h.VerifyHashedPassword(user, user.PasswordHash, userDto.Password)).Returns(PasswordVerificationResult.Success);
 
             // Act
             var result = await _userServices.LoginAsync(userDto);
@@ -88,7 +89,7 @@ namespace OnlineStoreApp.Tests.Services
             };
 
             _mockRepo.Setup(repo => repo.GetByUsernameAsync(userDto.Username)).ReturnsAsync(user);
-            _mockHasher.Setup(h => h.HashPassword(userDto.Password)).Returns("wrongHashedPassword");
+            _mockHasher.Setup(h => h.VerifyHashedPassword(user, user.PasswordHash, userDto.Password)).Returns(PasswordVerificationResult.Failed);
 
             // Act & Assert
             await Assert.ThrowsAsync<UnauthorizedAccessException>(() => _userServices.LoginAsync(userDto));
