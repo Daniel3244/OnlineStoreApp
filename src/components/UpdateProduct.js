@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import api from '../services/api';
-import './UpdateProduct.css'; // Import CSS for styling
+import './UpdateProduct.css'; 
 
 const UpdateProduct = () => {
     const { id } = useParams();
@@ -13,7 +13,7 @@ const UpdateProduct = () => {
         stock: ''
     });
     const [error, setError] = useState(null);
-    const [showUpdatedMessage, setShowUpdatedMessage] = useState(false); // State for showing the message
+    const [showUpdatedMessage, setShowUpdatedMessage] = useState(false); 
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -42,7 +42,7 @@ const UpdateProduct = () => {
             setTimeout(() => {
                 setShowUpdatedMessage(false);
                 navigate('/products');
-            }, 1000); // Hide message after 3 seconds and navigate back to products
+            }, 1000); 
         } catch (err) {
             setError('Failed to update product.');
             console.error(err);

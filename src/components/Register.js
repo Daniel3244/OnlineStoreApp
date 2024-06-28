@@ -6,7 +6,7 @@ const Register = () => {
     const [user, setUser] = useState({ username: '', password: '' });
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
-    const [isSubmitting, setIsSubmitting] = useState(false); // New state variable to manage button disabled state
+    const [isSubmitting, setIsSubmitting] = useState(false); 
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -16,18 +16,18 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setIsSubmitting(true); // Disable the button when form is submitted
+        setIsSubmitting(true); 
         try {
             await api.register(user);
             setSuccess('Registration successful! Redirecting to login...');
             setError(null);
             setTimeout(() => {
                 navigate('/login');
-            }, 3000); // Redirect after 3 seconds
+            }, 3000); 
         } catch (err) {
             setError('Registration failed. Please try again.');
             setSuccess(null);
-            setIsSubmitting(false); // Re-enable the button if registration fails
+            setIsSubmitting(false); 
             console.error(err);
         }
     };
@@ -46,7 +46,7 @@ const Register = () => {
                     <label>Password</label>
                     <input type="password" name="password" value={user.password} onChange={handleChange} className="form-control" required />
                 </div>
-                <button type="submit" className="btn btn-primary" disabled={isSubmitting}>Register</button> {/* Disable the button when submitting */}
+                <button type="submit" className="btn btn-primary" disabled={isSubmitting}>Register</button> {}
             </form>
         </div>
     );

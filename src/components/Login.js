@@ -16,10 +16,10 @@ const Login = ({ onLogin }) => {
         e.preventDefault();
         try {
             const response = await api.authenticate(credentials);
-            const { token, role } = response.data; // Ensure response contains role
+            const { token, role } = response.data; 
             localStorage.setItem('token', token);
-            localStorage.setItem('username', credentials.username); // Store username in local storage
-            localStorage.setItem('role', role); // Store role in local storage
+            localStorage.setItem('username', credentials.username); 
+            localStorage.setItem('role', role); 
             onLogin();
             navigate('/');
         } catch (err) {

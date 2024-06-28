@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import { useCart } from '../context/CartContext';
-import './ProductsList.css'; // Import CSS for styling
+import './ProductsList.css'; 
 
 const ProductsList = () => {
     const [products, setProducts] = useState([]);
     const [error, setError] = useState(null);
-    const [showAddedMessage, setShowAddedMessage] = useState(false); // State for showing the message
-    const role = localStorage.getItem('role'); // Retrieve the role from local storage
-    const token = localStorage.getItem('token'); // Retrieve the token to check if user is logged in
+    const [showAddedMessage, setShowAddedMessage] = useState(false); 
+    const role = localStorage.getItem('role'); 
+    const token = localStorage.getItem('token'); 
     const { dispatch } = useCart();
     const navigate = useNavigate();
 
@@ -33,7 +33,7 @@ const ProductsList = () => {
         } else {
             dispatch({ type: 'ADD_TO_CART', product });
             setShowAddedMessage(true);
-            setTimeout(() => setShowAddedMessage(false), 3000); // Hide message after 3 seconds
+            setTimeout(() => setShowAddedMessage(false), 3000); 
         }
     };
 

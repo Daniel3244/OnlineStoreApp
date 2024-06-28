@@ -16,7 +16,7 @@ const AddProduct = () => {
         e.preventDefault();
         try {
             await api.addProduct(product);
-            navigate('/products'); // Navigate back to products list
+            navigate('/products'); 
         } catch (err) {
             setError('Failed to add product. Please try again.');
         }

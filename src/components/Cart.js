@@ -3,23 +3,23 @@ import { useCart } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom';
 import { Modal, Button } from 'react-bootstrap';
 import api from '../services/api';
-import { jwtDecode } from 'jwt-decode'; // Correctly import jwtDecode
-import './Cart.css'; // Import the CSS file for styling
+import { jwtDecode } from 'jwt-decode'; 
+import './Cart.css'; 
 
 const Cart = () => {
     const { cart, dispatch } = useCart();
     const [showThankYou, setShowThankYou] = useState(false);
     const [error, setError] = useState(null);
-    const [stockErrors, setStockErrors] = useState([]); // Array to hold multiple stock errors
+    const [stockErrors, setStockErrors] = useState([]); 
     const [showStockModal, setShowStockModal] = useState(false);
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
     const isAuthenticated = !!token;
-    const userId = token ? jwtDecode(token).id : null; // Decode the user ID from the token
+    const userId = token ? jwtDecode(token).id : null; 
 
     useEffect(() => {
         if (!isAuthenticated) {
-            navigate('/login', { state: { from: { pathname: '/cart' } } }); // Redirect to login with target page set to cart
+            navigate('/login', { state: { from: { pathname: '/cart' } } }); 
         }
     }, [isAuthenticated, navigate]);
 
@@ -60,7 +60,7 @@ const Cart = () => {
             dispatch({ type: 'CLEAR_CART' });
         } catch (err) {
             setError('Failed to create order. Please try again.');
-            console.error(err.response ? err.response.data : err.message); // Log detailed error message
+            console.error(err.response ? err.response.data : err.message); 
         }
     };
 
@@ -73,7 +73,7 @@ const Cart = () => {
         const totalPrice = calculateTotalPrice(cartItems);
 
         const order = {
-            userId, // Include the userId here
+            userId, 
             orderItems,
             totalPrice
         };

@@ -8,11 +8,11 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Cart from './components/Cart';
 import AddProduct from './components/AddProduct';
-import UpdateProduct from './components/UpdateProduct'; // Import UpdateProduct
-import { CartProvider } from './context/CartContext'; // Import CartProvider
+import UpdateProduct from './components/UpdateProduct'; 
+import { CartProvider } from './context/CartContext'; 
 
 const App = () => {
-    const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token')); // Update initial state
+    const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token')); 
 
     const handleLogin = () => {
         setIsAuthenticated(true);
@@ -25,7 +25,7 @@ const App = () => {
     };
 
     return (
-        <CartProvider> {/* Wrap the application with CartProvider */}
+        <CartProvider> {}
             <Router>
                 <Header isAuthenticated={isAuthenticated} onLogout={handleLogout} />
                 <Routes>

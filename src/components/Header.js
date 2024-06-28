@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import './Header.css'; // Ensure this import is correct
+import './Header.css'; 
 
 const Header = ({ isAuthenticated, onLogout }) => {
     const navigate = useNavigate();
-    const username = localStorage.getItem('username'); // Retrieve username from local storage
+    const username = localStorage.getItem('username'); 
   
 
     const handleLogout = () => {

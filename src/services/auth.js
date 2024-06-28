@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const AUTH_API_BASE_URL = 'http://localhost:5166/api'; // Adjust this URL to match your API
+const AUTH_API_BASE_URL = 'http://localhost:5166/api'; 
 
 export const authenticate = async (username, password) => {
     try {
