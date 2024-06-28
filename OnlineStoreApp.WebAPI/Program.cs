@@ -14,7 +14,7 @@ using OnlineStoreApp.ProductService.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+
 builder.Services.AddControllers();
 
 // Configure HTTP clients for external services

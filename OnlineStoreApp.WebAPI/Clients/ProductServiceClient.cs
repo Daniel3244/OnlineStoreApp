@@ -56,7 +56,7 @@ namespace OnlineStoreApp.WebAPI.Clients
             return response.IsSuccessStatusCode;
         }
 
-        // Dodaj metodę GetProductByIdAsync
+       
         public async Task<ProductDto> GetProductByIdAsync(Guid id)
         {
             _logger.LogInformation($"Sending request to get product with ID: {id}.");

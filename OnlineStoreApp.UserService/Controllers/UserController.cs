@@ -37,7 +37,7 @@ namespace OnlineStoreApp.UserService.Controllers
                 return Unauthorized();
             }
             var token = GenerateJwtToken(user);
-            return Ok(new { Token = token, Role = user.Role }); // Include the role in the response
+            return Ok(new { Token = token, Role = user.Role }); 
         }
 
         private string GenerateJwtToken(User user)

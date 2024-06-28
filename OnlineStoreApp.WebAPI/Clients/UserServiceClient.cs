@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 public class LoginResponse
 {
     public string Token { get; set; }
-    public string Role { get; set; } // Ensure role is included in the response
+    public string Role { get; set; } 
 }
 
 public class UserServiceClient
@@ -30,7 +30,7 @@ public class UserServiceClient
         if (response.IsSuccessStatusCode)
         {
             var result = await response.Content.ReadFromJsonAsync<LoginResponse>();
-            return result; // Return the entire response including the token and role
+            return result; 
         }
         return null;
     }
